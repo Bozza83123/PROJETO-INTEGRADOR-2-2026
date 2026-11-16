@@ -1,1 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sol + Água: do fóton à piscina aquecida</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f4fbfa;--bg2:#ffffff;--ink:#10222b;--mut:#3d5560;--sea:#0b5f7e;--sea2:#0a4a63;--sun:#f5a623;--sunink:#3a2400;--line:#b9d6dc;--fs:1;--ff:'Lexend',Verdana,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#07222c;--bg2:#0c3341;--ink:#eaf7f8;--mut:#b5d0d6;--sea:#7fd3ec;--sea2:#5cc0de;--line:#2b5666}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#07222c;--bg2:#0c3341;--ink:#eaf7f8;--mut:#b5d0d6;--sea:#7fd3ec;--sea2:#5cc0de;--line:#2b5666}
+:root[data-contrast="1"]{--bg:#000;--bg2:#000;--ink:#fff;--mut:#fff;--sea:#ffe600;--sea2:#ffe600;--line:#fff;--sun:#ffe600;--sunink:#000;color-scheme:dark}
+:root[data-dys="1"]{--ff:'Comic Sans MS','Lexend',Verdana,sans-serif}
+:root[data-dys="1"] body{letter-spacing:.06em;word-spacing:.16em;line-height:1.9}
+:root[data-dys="1"] p{text-align:left;max-width:60ch}
+html{scroll-padding-top:env(safe-area-inset-top,0px);font-size:calc(100% * var(--fs))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ff);line-height:1.65;font-size:1.05rem}
+.skip{position:absolute;left:-999px;top:0;background:var(--sun);color:var(--sunink);padding:.8rem 1rem;z-index:99;font-weight:600}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:4px}
+:root[data-contrast="1"] :focus-visible{outline-color:#0ff}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sea2);color:#fff;padding:.5rem 1rem}
+:root[data-contrast="1"] header.top{background:#000;border-bottom:2px solid #fff}
+:root[data-theme="dark"] header.top,:root[data-contrast="1"] header.top{color:#fff}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;max-width:1100px;margin:auto}
+.logo{font-weight:800;font-size:1.15rem;color:#fff;text-decoration:none;margin-right:auto}
+.logo span{color:var(--sun)}
+nav ul{display:flex;flex-wrap:wrap;gap:.2rem;list-style:none;margin:0;padding:0}
+nav a{color:#fff;text-decoration:none;padding:.45rem .7rem;border-radius:6px;font-size:.92rem;display:inline-block}
+nav a:hover,nav a[aria-current=true]{background:rgba(255,255,255,.2);text-decoration:underline}
+#menuBtn{display:none}
+button,.btn{font:inherit;cursor:pointer;border:2px solid currentColor;background:transparent;color:inherit;border-radius:8px;padding:.4rem .75rem;min-height:44px}
+.a11y{display:flex;gap:.3rem;flex-wrap:wrap}
+.a11y button{font-size:.85rem;color:#fff}
+.a11y button[aria-pressed=true]{background:var(--sun);color:var(--sunink);border-color:var(--sun)}
+@media(max-width:820px){#menuBtn{display:inline-block;color:#fff}nav{width:100%;display:none}nav.open{display:block}nav ul{flex-direction:column}}
+main{max-width:1100px;margin:auto;padding:0 1rem 3rem}
+section{padding:3rem 0 1rem;border-bottom:1px dashed var(--line)}
+h1,h2,h3{line-height:1.2;color:var(--sea)}
+h1{font-size:clamp(2rem,6vw,3.6rem);margin:.2em 0;font-weight:800}
+h2{font-size:clamp(1.5rem,4vw,2.2rem);margin:0 0 .6rem}
+h3{font-size:1.2rem;margin:1.4rem 0 .3rem}
+p,li{max-width:72ch}
+.hero{position:relative;overflow:hidden;border-radius:0 0 28px 28px;margin:0 -1rem;padding:3rem 1.5rem 7rem;background:linear-gradient(180deg,#fff2c9 0%,#bfe8f2 62%,#0b6f94 62%,#0a4a63 100%);color:#10222b}
+:root[data-theme="dark"] .hero{background:linear-gradient(180deg,#4a3a10 0%,#0f4254 62%,#0a4a63 62%,#06303f 100%);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:linear-gradient(180deg,#4a3a10 0%,#0f4254 62%,#0a4a63 62%,#06303f 100%);color:#fff}}
+:root[data-contrast="1"] .hero{background:#000;border-bottom:3px solid #ffe600;color:#fff}
+.hero h1,.hero .lead{color:inherit;max-width:20ch}
+.hero .lead{max-width:48ch;font-size:1.2rem}
+.sun{position:absolute;right:6%;top:1.5rem;width:110px;height:110px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 14px rgba(245,166,35,.3),0 0 0 32px rgba(245,166,35,.15);animation:pulse 4s ease-in-out infinite}
+.wave{position:absolute;left:0;bottom:0;width:200%;height:70px;animation:drift 9s linear infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+@keyframes drift{to{transform:translateX(-50%)}}
+.cta{display:inline-block;background:var(--sun);color:var(--sunink);font-weight:600;padding:.8rem 1.3rem;border-radius:999px;text-decoration:none;border:0;margin:.4rem .4rem 0 0}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--bg2);border:2px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.card h3{margin-top:.2rem}
+.sim{background:var(--bg2);border:2px solid var(--sea);border-radius:18px;padding:1.2rem;margin:1.2rem 0}
+.sim label{display:block;margin:.7rem 0 .1rem;font-weight:600}
+.sim input[type=range]{width:100%;min-height:32px;accent-color:var(--sea)}
+.sim input[type=number]{font:inherit;width:7rem;padding:.4rem;border:2px solid var(--sea);border-radius:6px;background:var(--bg);color:var(--ink);min-height:44px}
+.out{font-size:1.3rem;font-weight:800;color:var(--sea);margin:.6rem 0}
+.meter{height:22px;border:2px solid var(--sea);border-radius:99px;overflow:hidden;background:var(--bg)}
+.meter i{display:block;height:100%;background:var(--sun);width:0;transition:width .3s}
+svg{max-width:100%;height:auto}
+.fig{background:var(--bg2);border:2px solid var(--line);border-radius:14px;padding:1rem;margin:1rem 0}
+figcaption{color:var(--mut);font-size:.95rem}
+.ph{border:3px dashed var(--sea);border-radius:14px;padding:1.2rem;text-align:center;color:var(--mut)}
+pre{background:#0a2530;color:#e8f6f8;padding:1rem;border-radius:10px;overflow-x:auto;font-size:.85rem;line-height:1.5}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--line);padding:.5rem;text-align:left}
+th{background:var(--sea2);color:#fff}
+.tw{overflow-x:auto}
+.ph-ray{animation:fly 2.4s linear infinite}
+@keyframes fly{from{transform:translate(0,0);opacity:1}to{transform:translate(70px,90px);opacity:.2}}
+.ele{animation:flow 3s linear infinite}
+@keyframes flow{from{transform:translateX(0)}to{transform:translateX(60px)}}
+:root[data-motion="off"] *{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+footer{background:var(--sea2);color:#fff;padding:1.5rem 1rem;text-align:center}
+footer a{color:var(--sun)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo principal</a>
 
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+
+<header class="top">
+ <div class="bar">
+  <a class="logo" href="#inicio">Sol <span>+</span> Água</a>
+  <button id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav" aria-label="Navegação principal">
+   <ul>
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#celula">A célula</a></li>
+    <li><a href="#fotons">Fótons</a></li>
+    <li><a href="#potencia">Potência</a></li>
+    <li><a href="#dia">Ao longo do dia</a></li>
+    <li><a href="#piscina">Piscina</a></li>
+    <li><a href="#robotica">Robótica</a></li>
+    <li><a href="#acessibilidade">Acessibilidade</a></li>
+    <li><a href="#mapa">Mapa do site</a></li>
+   </ul>
+  </nav>
+ </div>
+ <div class="bar a11y" role="group" aria-label="Opções de acessibilidade">
+  <button id="bContrast" aria-pressed="false">Alto contraste</button>
+  <button id="bDys" aria-pressed="false">Fonte para dislexia</button>
+  <button id="bPlus" aria-label="Aumentar fonte">A+</button>
+  <button id="bMinus" aria-label="Diminuir fonte">A−</button>
+  <button id="bMotion" aria-pressed="false">Pausar animações</button>
+  <button id="bReset">Restaurar</button>
+ </div>
+</header>
+
+<main id="main" tabindex="-1">
+<section id="inicio" class="hero" aria-labelledby="t1" style="border-bottom:0">
+ <div class="sun" aria-hidden="true"></div>
+ <h1 id="t1">Do sol à água quentinha</h1>
+ <p class="lead">Descubra como uma placa fotovoltaica transforma luz em eletricidade e como essa energia pode aquecer uma piscina.</p>
+ <a class="cta" href="#celula">Começar a explorar</a><a class="cta" href="#piscina">Ir direto à piscina</a>
+ <svg class="wave" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 35 Q 75 0 150 35 T 300 35 T 450 35 T 600 35 T 750 35 T 900 35 T 1050 35 T 1200 35 V70 H0Z" fill="#5cc0de" opacity=".55"/></svg>
+</section>
+
+<section aria-labelledby="oq"><h2 id="oq">Cinco perguntas guiam este site</h2>
+<div class="grid">
+ <a class="card" href="#celula" style="color:inherit;text-decoration:none"><h3>Como é a célula?</h3><p>Estrutura e materiais.</p></a>
+ <a class="card" href="#fotons" style="color:inherit;text-decoration:none"><h3>Como um fóton gera corrente?</h3><p>Efeito fotoelétrico e junção p-n.</p></a>
+ <a class="card" href="#potencia" style="color:inherit;text-decoration:none"><h3>Radiação, potência e eficiência</h3><p>Simulador de painel.</p></a>
+ <a class="card" href="#dia" style="color:inherit;text-decoration:none"><h3>Dia, noite e nuvens</h3><p>Por que a produção varia.</p></a>
+ <a class="card" href="#piscina" style="color:inherit;text-decoration:none"><h3>Aquecer a piscina</h3><p>Calculadora de energia.</p></a>
+</div></section>
+
+<section id="celula" aria-labelledby="h-c"><h2 id="h-c">1. Estrutura de uma célula fotovoltaica</h2>
+<p>Uma célula comum é uma fatia fina de <strong>silício</strong> (cerca de 0,2 mm) com duas camadas dopadas. O silício tipo n recebe fósforo, que tem elétron sobrando. O silício tipo p recebe boro, que tem “falta” de elétron, chamada lacuna. Onde as camadas se encontram forma-se a <strong>junção p-n</strong>, com um campo elétrico interno.</p>
+<figure class="fig"><svg viewBox="0 0 520 250" role="img" aria-labelledby="cd cdd"><title id="cd">Corte de uma célula fotovoltaica</title><desc id="cdd">Da parte de cima para baixo: grade metálica frontal, camada antirreflexo, silício tipo n, junção p-n, silício tipo p e contato metálico traseiro.</desc>
+<g font-family="sans-serif" font-size="14">
+<rect x="40" y="40" width="300" height="22" fill="#2a5db0"/><text x="350" y="56" fill="currentColor">Antirreflexo (nitreto de silício)</text>
+<rect x="40" y="62" width="300" height="40" fill="#3b9fd0"/><text x="350" y="86" fill="currentColor">Silício tipo n (fósforo)</text>
+<rect x="40" y="102" width="300" height="4" fill="#f5a623"/><text x="350" y="108" fill="currentColor">Junção p-n</text>
+<rect x="40" y="106" width="300" height="80" fill="#d9822b"/><text x="350" y="150" fill="currentColor">Silício tipo p (boro)</text>
+<rect x="40" y="186" width="300" height="12" fill="#888"/><text x="350" y="196" fill="currentColor">Contato traseiro (alumínio)</text>
+<rect x="90" y="30" width="10" height="12" fill="#bbb"/><rect x="180" y="30" width="10" height="12" fill="#bbb"/><rect x="270" y="30" width="10" height="12" fill="#bbb"/><text x="350" y="30" fill="currentColor">Grade metálica frontal</text>
+<g class="ph-ray" stroke="#f5a623" stroke-width="4" stroke-linecap="round"><line x1="130" y1="0" x2="145" y2="20"/><line x1="220" y1="0" x2="235" y2="20"/></g></g></svg>
+<figcaption>Os raios dourados animados representam fótons chegando à célula.</figcaption></figure>
+<div class="grid"><div class="card"><h3>Silício monocristalino</h3><p>Eficiência de 20% a 24%. Mais caro, mais usado em telhados.</p></div>
+<div class="card"><h3>Silício policristalino</h3><p>Eficiência de 16% a 19%. Fabricação mais simples.</p></div>
+<div class="card"><h3>Filmes finos e perovskitas</h3><p>Leves e flexíveis. As perovskitas já passam de 25% em laboratório, mas ainda duram pouco.</p></div></div>
+<div class="fig"><strong>Vídeo em Libras: estrutura da célula</strong>
+<div class="ph" role="note">Espaço reservado. Para ativar, troque este bloco por <code>&lt;video controls&gt;&lt;source src="celula-libras.mp4"&gt;&lt;track kind="captions" src="celula.vtt" srclang="pt"&gt;&lt;/video&gt;</code>. Janela de Libras no canto, legendas e transcrição abaixo.</div></div>
+</section>
+
+<section id="fotons" aria-labelledby="h-f"><h2 id="h-f">2. Como um fóton vira corrente</h2>
+<p>A luz chega em pacotes de energia chamados fótons, com <strong>E = h·c/λ</strong>. Se a energia do fóton for maior que o <em>gap</em> do semicondutor (1,12 eV no silício), ele empurra um elétron para a banda de condução e deixa uma lacuna. É o efeito fotoelétrico interno. O campo da junção p-n separa o par: elétrons vão para o lado n, lacunas para o lado p. Ligando um circuito externo, o elétron percorre o fio e gera <strong>corrente contínua</strong>.</p>
+<div class="sim"><h3>Simulador: o fóton é absorvido?</h3>
+<label for="lam">Comprimento de onda: <output id="lamO">550</output> nm</label>
+<input id="lam" type="range" min="300" max="1500" value="550">
+<p class="out" id="phOut" aria-live="polite"></p>
+<div class="meter" role="img" aria-label="Fração da energia aproveitada"><i id="phBar"></i></div>
+<p id="phTxt"></p></div></section>
+
+<section id="potencia" aria-labelledby="h-p"><h2 id="h-p">3. Radiação, potência e eficiência</h2>
+<p>A potência elétrica é <strong>P = G · A · η</strong>: irradiância (W/m²) × área (m²) × eficiência. O pleno sol vale cerca de 1000 W/m². O calor reduz a eficiência em torno de 0,4% por °C acima de 25 °C.</p>
+<div class="sim"><h3>Simulador de painel</h3>
+<label for="G">Irradiância: <output id="GO">800</output> W/m²</label><input id="G" type="range" min="0" max="1100" value="800">
+<label for="A">Área dos painéis: <output id="AO">10</output> m²</label><input id="A" type="range" min="1" max="40" value="10">
+<label for="E">Eficiência nominal: <output id="EO">20</output> %</label><input id="E" type="range" min="10" max="25" value="20">
+<label for="T">Temperatura da célula: <output id="TO">45</output> °C</label><input id="T" type="range" min="15" max="80" value="45">
+<p class="out" id="pOut" aria-live="polite"></p>
+<div class="meter" role="img" aria-label="Potência em relação ao máximo"><i id="pBar"></i></div></div>
+<div class="tw"><table><caption style="text-align:left;font-weight:600">Comparativo de tecnologias</caption><thead><tr><th scope="col">Tecnologia</th><th scope="col">Eficiência</th><th scope="col">Custo</th><th scope="col">Vida útil</th></tr></thead><tbody>
+<tr><td>Monocristalino</td><td>20–24%</td><td>Médio-alto</td><td>25–30 anos</td></tr>
+<tr><td>Policristalino</td><td>16–19%</td><td>Médio</td><td>25 anos</td></tr>
+<tr><td>Filme fino</td><td>10–13%</td><td>Baixo</td><td>15–20 anos</td></tr></tbody></table></div></section>
+
+<section id="dia" aria-labelledby="h-d"><h2 id="h-d">4. Por que a produção varia</h2>
+<p>A irradiância segue a altura do Sol: zero à noite, máxima ao meio-dia. Nuvens espalham e absorvem luz e podem cortar de 30% a 80% da geração. Poeira e sombras também pesam.</p>
+<div class="sim"><h3>Simulador: um dia de geração</h3>
+<label for="cl">Nuvens: <output id="clO">0</output> %</label><input id="cl" type="range" min="0" max="100" value="0">
+<label for="kw">Potência instalada: <output id="kwO">3</output> kWp</label><input id="kw" type="range" min="1" max="10" step=".5" value="3">
+<svg id="dayChart" viewBox="0 0 600 240" role="img" aria-labelledby="dcT"><title id="dcT">Gráfico de potência por hora do dia</title></svg>
+<p class="out" id="dayOut" aria-live="polite"></p></div></section>
+
+<section id="piscina" aria-labelledby="h-pi"><h2 id="h-pi">5. Conexão com o projeto da piscina</h2>
+<p>Calor necessário: <strong>Q = m · c · ΔT</strong>, com c = 4186 J/(kg·°C). A eletricidade fotovoltaica pode alimentar uma resistência ou uma bomba de calor. A bomba de calor entrega 3 a 5 vezes mais calor por kWh elétrico (COP). Uma capa térmica reduz perdas à noite.</p>
+<div class="sim"><h3>Calculadora: quanto sol para aquecer?</h3>
+<label for="pc">Comprimento (m)</label><input id="pc" type="number" value="6" min="1">
+<label for="pl">Largura (m)</label><input id="pl" type="number" value="3" min="1">
+<label for="pp">Profundidade média (m)</label><input id="pp" type="number" value="1.4" min=".5" step=".1">
+<label for="dT">Aumento de temperatura desejado: <output id="dTO">4</output> °C</label><input id="dT" type="range" min="1" max="10" value="4">
+<label for="cop">Sistema: <output id="copO">Resistência (COP 1)</output></label><input id="cop" type="range" min="1" max="5" value="1">
+<label for="pk">Painéis: <output id="pkO">3</output> kWp</label><input id="pk" type="range" min="1" max="10" step=".5" value="3">
+<label for="hs">Horas de sol pleno por dia: <output id="hsO">4.5</output> h</label><input id="hs" type="range" min="2" max="7" step=".5" value="4.5">
+<p class="out" id="poolOut" aria-live="polite"></p></div>
+<h3>Automação proposta</h3>
+<p>Um sensor de luz e um sensor de temperatura ligam a bomba de calor somente quando há sol sobrando. Assim a água aquece com energia limpa e no horário em que ela está sendo produzida. Veja o protótipo na seção de robótica.</p>
+<h3>Impacto social e ambiental</h3>
+<p>Cada kWh solar evita em média cerca de 0,08 kg de CO₂ na matriz elétrica brasileira, uma das mais limpas do mundo. O projeto pode virar oficina aberta na escola e na comunidade, com site acessível em Libras, para que todas as pessoas entendam e participem da transição energética.</p></section>
+
+<section id="robotica" aria-labelledby="h-r"><h2 id="h-r">6. Robótica no Tinkercad</h2>
+<p>O Tinkercad Circuits não tem célula fotovoltaica, então o projeto usa um <strong>sensor de luz (LDR)</strong> para representar a radiação solar e um <strong>potenciômetro</strong> como tensão do painel. O Arduino mede, decide e liga a “bomba” (LED/relé) quando há sol suficiente.</p>
+<figure class="fig"><svg viewBox="0 0 560 260" role="img" aria-labelledby="tkT tkD"><title id="tkT">Esquema do circuito no Tinkercad</title><desc id="tkD">Arduino Uno com LDR e resistor de 10 quilo-ohms formando divisor de tensão na entrada A0, potenciômetro em A1 e LED com resistor de 220 ohms no pino 8 representando a bomba.</desc>
+<g font-family="sans-serif" font-size="13" fill="currentColor"><rect x="200" y="40" width="160" height="180" rx="10" fill="#0b7a8a"/><text x="225" y="70" fill="#fff" font-size="16">Arduino Uno</text><text x="205" y="110" fill="#fff">A0</text><text x="205" y="150" fill="#fff">A1</text><text x="320" y="110" fill="#fff">D8</text><text x="205" y="190" fill="#fff">5V / GND</text>
+<circle cx="60" cy="100" r="26" fill="#f5a623"/><text x="40" y="160">LDR (sol)</text><rect x="100" y="110" width="50" height="14" fill="#c9a" /><text x="95" y="145">10 kΩ</text>
+<path d="M86 100H200M125 117V110" stroke="currentColor" fill="none" stroke-width="2"/>
+<rect x="40" y="190" width="70" height="30" rx="6" fill="#888"/><text x="30" y="240">Potenciômetro</text><path d="M110 205H200V150" stroke="currentColor" fill="none" stroke-width="2"/>
+<path d="M360 105H430" stroke="currentColor" fill="none" stroke-width="2"/><rect x="430" y="98" width="40" height="14" fill="#c9a"/><text x="425" y="130">220 Ω</text><circle cx="500" cy="105" r="16" fill="#e63946"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/></circle><text x="470" y="150">LED = bomba</text></g></svg>
+<figcaption>Esquema ilustrativo do protótipo. Substitua pelas capturas reais do seu projeto abaixo.</figcaption></figure>
+<div class="fig"><h3 style="margin-top:0">Suas imagens do Tinkercad</h3>
+<p>Envie prints da montagem e da simulação funcionando. Elas aparecem aqui só no seu navegador.</p>
+<label for="up" class="btn">Escolher imagens</label> <input id="up" type="file" accept="image/*" multiple style="max-width:100%">
+<div id="gal" class="grid" style="margin-top:1rem"></div></div>
+<h3>Código do Arduino (cole no editor de código do Tinkercad)</h3>
+<pre tabindex="0">int limiar = 600;      // ajuste conforme a luz
+void setup(){ pinMode(8, OUTPUT); Serial.begin(9600); }
+void loop(){
+  int luz = analogRead(A0);          // LDR
+  int painel = analogRead(A1);       // potenciômetro (tensão do "painel")
+  float volts = painel * 5.0 / 1023;
+  bool sol = (luz &gt; limiar) &amp;&amp; (volts &gt; 2.0);
+  digitalWrite(8, sol ? HIGH : LOW); // liga a bomba/aquecedor
+  Serial.print(luz); Serial.print(" | "); Serial.println(volts);
+  delay(300);
+}</pre>
+<p><strong>Como testar:</strong> inicie a simulação, clique no LDR e aumente a luz. Com o potenciômetro acima de 2 V, o LED acende.</p></section>
+
+<section id="acessibilidade" aria-labelledby="h-a"><h2 id="h-a">Acessibilidade e inclusão</h2>
+<ul><li><strong>VLibras:</strong> o botão do plugin traduz o texto do site para Libras.</li>
+<li><strong>Teclado:</strong> use Tab, Shift+Tab, Enter e as setas nos controles deslizantes. Há link para pular ao conteúdo.</li>
+<li><strong>Visual:</strong> alto contraste, fonte para dislexia, ajuste de tamanho e pausa de animações no topo da página.</li>
+<li><strong>Leitores de tela:</strong> imagens com descrição, resultados anunciados automaticamente e tabelas com legenda.</li>
+<li><strong>Inclusão digital:</strong> o site é leve, funciona no celular e sem cadastro.</li></ul></section>
+
+<section id="mapa" aria-labelledby="h-m"><h2 id="h-m">Mapa do site</h2>
+<ul><li><a href="#inicio">Início</a></li><li><a href="#celula">1. A célula fotovoltaica</a></li><li><a href="#fotons">2. Fótons e efeito fotoelétrico</a></li><li><a href="#potencia">3. Potência e eficiência</a></li><li><a href="#dia">4. Variação ao longo do dia</a></li><li><a href="#piscina">5. Projeto da piscina</a></li><li><a href="#robotica">6. Robótica no Tinkercad</a></li><li><a href="#acessibilidade">Acessibilidade</a></li></ul></section>
+</main>
+<footer><p>Projeto educacional Sol + Água. Física moderna, programação e robótica a serviço da sustentabilidade.</p><p><a href="#inicio">Voltar ao topo</a></p></footer>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+try{new window.VLibras.Widget('https://vlibras.gov.br/app')}catch(e){}
+const $=id=>document.getElementById(id),R=document.documentElement;
+function bind(id,fn){const el=$(id);el.addEventListener('input',()=>{$(id+'O')&&($(id+'O').textContent=el.value);fn()});$(id+'O')&&($(id+'O').textContent=el.value)}
+const f1=n=>n.toLocaleString('pt-BR',{maximumFractionDigits:1});
+// menu
+$('menuBtn').onclick=()=>{const o=$('nav').classList.toggle('open');$('menuBtn').setAttribute('aria-expanded',o)};
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{$('nav').classList.remove('open');$('menuBtn').setAttribute('aria-expanded',false)}));
+// acessibilidade
+let fs=1;const st={};
+function tog(btn,attr,val){btn.onclick=()=>{const on=btn.getAttribute('aria-pressed')!=='true';btn.setAttribute('aria-pressed',on);on?R.setAttribute(attr,val):R.removeAttribute(attr)}}
+tog($('bContrast'),'data-contrast','1');tog($('bDys'),'data-dys','1');tog($('bMotion'),'data-motion','off');
+$('bPlus').onclick=()=>{fs=Math.min(1.5,fs+.1);R.style.setProperty('--fs',fs)};
+$('bMinus').onclick=()=>{fs=Math.max(.85,fs-.1);R.style.setProperty('--fs',fs)};
+$('bReset').onclick=()=>{fs=1;R.style.setProperty('--fs',1);['data-contrast','data-dys','data-motion'].forEach(a=>R.removeAttribute(a));['bContrast','bDys','bMotion'].forEach(i=>$(i).setAttribute('aria-pressed',false))};
+// item atual no menu
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>io.observe(s));
+// fótons
+function ph(){const l=+$('lam').value,E=1240/l,Eg=1.12;
+ let t,pct;
+ if(E<Eg){t='Fóton sem energia suficiente: atravessa o silício.';pct=0}
+ else{pct=Eg/E*100;t='Fóton absorvido: gera um par elétron-lacuna. O excedente de energia vira calor.'}
+ $('phOut').textContent='E = '+E.toFixed(2)+' eV (gap do Si: 1,12 eV)';
+ $('phTxt').textContent=t+' Aproveitamento: '+f1(pct)+'%. '+(l<400?'Região ultravioleta.':l<700?'Luz visível.':'Infravermelho.');
+ $('phBar').style.width=pct+'%'}
+bind('lam',ph);ph();
+// potência
+function pw(){const G=+$('G').value,A=+$('A').value,E=+$('E').value/100,T=+$('T').value;
+ const eta=E*(1-.004*Math.max(0,T-25)),P=G*A*eta;
+ $('pOut').textContent='Potência: '+f1(P)+' W. Eficiência real: '+f1(eta*100)+'%.';
+ $('pBar').style.width=Math.min(100,P/(1100*40*.25)*100*4)+'%'}
+['G','A','E','T'].forEach(i=>bind(i,pw));pw();
+// dia
+function day(){const c=+$('cl').value/100,kw=+$('kw').value,pts=[];let kwh=0;
+ for(let h=0;h<=24;h+=.5){const s=Math.max(0,Math.sin(Math.PI*(h-6)/12));const p=kw*.8*Math.pow(s,1.2)*(1-.75*c);pts.push([h,p]);if(h<24)kwh+=p*.5}
+ const mx=Math.max(1,kw);const X=h=>40+h/24*540,Y=p=>200-p/mx*170;
+ let d='M'+pts.map(q=>X(q[0])+','+Y(q[1])).join(' L');
+ let g='<line x1="40" y1="200" x2="580" y2="200" stroke="currentColor"/><line x1="40" y1="20" x2="40" y2="200" stroke="currentColor"/>';
+ [0,6,12,18,24].forEach(h=>g+=`<text x="${X(h)}" y="220" font-size="12" text-anchor="middle" fill="currentColor">${h}h</text>`);
+ g+=`<text x="36" y="34" font-size="12" text-anchor="end" fill="currentColor">${f1(mx)} kW</text>`;
+ g+=`<path d="${d} L${X(24)},200 L${X(0)},200Z" fill="#f5a623" opacity=".35"/><path d="${d}" fill="none" stroke="#f5a623" stroke-width="3"/>`;
+ $('dayChart').innerHTML='<title id="dcT">Gráfico de potência por hora do dia</title>'+g;
+ $('dayOut').textContent='Energia no dia: '+f1(kwh)+' kWh. Pico às 12h: '+f1(kw*.8*(1-.75*c))+' kW.'}
+['cl','kw'].forEach(i=>bind(i,day));day();
+// piscina
+function pool(){const V=$('pc').value*$('pl').value*$('pp').value,dT=+$('dT').value,cop=+$('cop').value,kw=+$('pk').value,hs=+$('hs').value;
+ const kwhHeat=V*1000*4186*dT/3.6e6,kwhEl=kwhHeat/cop,perDay=kw*hs*.8,days=kwhEl/perDay;
+ $('copO').textContent=cop===1?'Resistência (COP 1)':'Bomba de calor (COP '+cop+')';
+ $('poolOut').textContent='Volume: '+f1(V)+' m³ ('+f1(V*1000)+' L). Calor necessário: '+f1(kwhHeat)+' kWh. Eletricidade: '+f1(kwhEl)+' kWh. Painéis geram cerca de '+f1(perDay)+' kWh/dia. Tempo estimado: '+f1(days)+' dia(s), sem contar perdas de calor.'}
+['dT','cop','pk','hs'].forEach(i=>bind(i,pool));['pc','pl','pp'].forEach(i=>$(i).addEventListener('input',pool));pool();
+// galeria Tinkercad
+$('up').addEventListener('change',e=>{[...e.target.files].forEach(f=>{const r=new FileReader();r.onload=()=>{const fg=document.createElement('figure');fg.className='fig';fg.style.margin='0';const im=new Image();im.src=r.result;im.alt='Captura do Tinkercad: '+f.name;im.style.maxWidth='100%';const c=document.createElement('figcaption');c.textContent=f.name;fg.append(im,c);$('gal').append(fg)};r.readAsDataURL(f)})});
+</script>
+</body>
+</html>
